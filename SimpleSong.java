@@ -1,15 +1,12 @@
 import javax.sound.midi.*;
 
-/*202304703 Ueno Satoshi lilac mrs.greenapple*/
+/*lilac mrs.greenapple*/
 public class SimpleSong {
     public static void main(String[] args) throws Exception {
         Synthesizer synth = MidiSystem.getSynthesizer();
         synth.open();
-        // Thread.sleep(500); // Initial delay for synth readiness
 
         MidiChannel[] channels = synth.getChannels();
-        // channels[0].programChange(24); // Nylon Guitar for melody1/melody2
-        // channels[1].programChange(24); //
         channels[2].programChange(0); // Piano for melody3
 
         int tempo = 600; // 4*BPM, 4 tempo 4 node
@@ -314,19 +311,10 @@ public class SimpleSong {
                 if (loop == 1) { // Release sustain for melody3 only when it was active
                     channels[2].controlChange(64, 0); // Sustain pedal up for melody3 channel (2)
                 }
-
-                // Stop chords after the bar
-                /*
-                 * if (loop > 0) { // Only stop chords if they were played
-                 * for (int note : currentChord) {
-                 * channels[1].noteOff(note);
-                 * }
-                 * }
-                 */
-                // Thread.sleep(beatDuration); //
             }
         }
         Thread.sleep(500); // waite before closing
         synth.close(); // Close synth once after all loops are done
     }
+
 }
